@@ -1,4 +1,6 @@
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 
@@ -59,6 +61,8 @@ public static final String EACH_PRODUCT_NOTE_FILENAME = MyConfig.getText("produc
 	public static final int PROXY_PORT = Integer.valueOf(MyConfig.getText("proxy.port"));
 	
 	public static final boolean USE_PROXY = Boolean.valueOf(MyConfig.getText("proxy.use"));
+	
+	public static final List<String> IMAGE_EXCLUDE_LIST = Arrays.asList(MyConfig.getText("image.exclude.list").split(";"));
 	
 	public static final String DESC_TYPE_PS = "PS";
 	

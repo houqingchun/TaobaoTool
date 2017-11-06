@@ -274,6 +274,11 @@ public class TaobaoDownload {
 					WebElement storage = driver.findElement(By.id("J_EmStock"));
 					notes.add((i + 1) + Constants.TM_SEPERATOR + wb.getText() + Constants.TM_SEPERATOR + price + Constants.TM_SEPERATOR
 							+ storage.getText() + Constants.TM_SEPERATOR + filePath);
+				}else{
+					filePath = "NOTHING";
+					WebElement storage = driver.findElement(By.id("J_EmStock"));
+					notes.add((i + 1) + Constants.TM_SEPERATOR + wb.getText() + Constants.TM_SEPERATOR + price + Constants.TM_SEPERATOR
+							+ storage.getText() + Constants.TM_SEPERATOR + filePath);
 				}
 	
 			}
