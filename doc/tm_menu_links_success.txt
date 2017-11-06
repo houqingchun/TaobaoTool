@@ -2,6 +2,8 @@
 生日派对/男孩套餐###https://highparty.tmall.com/category-1270202568.htm?search=y&parentCatId=231105205&parentCatName=%C9%FA%C8%D5%C5%C9%B6%D4&catName=%C4%D0%BA%A2%CC%D7%B2%CD#bd
 生日派对/女孩套餐###https://highparty.tmall.com/category-1270202569.htm?search=y&parentCatId=231105205&parentCatName=%C9%FA%C8%D5%C5%C9%B6%D4&catName=%C5%AE%BA%A2%CC%D7%B2%CD#bd
 数字年龄套餐/男孩套餐###https://highparty.tmall.com/category-1213003380.htm?search=y&parentCatId=1213003379&parentCatName=%CA%FD%D7%D6%C4%EA%C1%E4%CC%D7%B2%CD&catName=%C4%D0%BA%A2%CC%D7%B2%CD#bd
+数字年龄套餐/女孩套餐###https://highparty.tmall.com/category-1213003381.htm?search=y&parentCatId=1213003379&parentCatName=%CA%FD%D7%D6%C4%EA%C1%E4%CC%D7%B2%CD&catName=%C5%AE%BA%A2%CC%D7%B2%CD#bd
+生肖套餐###https://highparty.tmall.com/category-1210688787.htm?search=y&catName=%C9%FA%D0%A4%CC%D7%B2%CD#bd
 圆点条纹波浪纯色主题###https://highparty.tmall.com/category-1112875462.htm?search=y&catName=%D4%B2%B5%E3%CC%F5%CE%C6%B2%A8%C0%CB%B4%BF%C9%AB%D6%F7%CC%E2#bd
 拍照面具###https://highparty.tmall.com/category-1128298308.htm?search=y&catName=%C5%C4%D5%D5%C3%E6%BE%DF#bd
 蜡烛/生日-卡通###https://highparty.tmall.com/category-1081221611.htm?search=y&parentCatId=1081221610&parentCatName=%C0%AF%D6%F2&catName=%C9%FA%C8%D5%2F%BF%A8%CD%A8#bd
@@ -55,6 +57,7 @@ COS服装/成人款###https://highparty.tmall.com/category-1110811010.htm?search
 卡通主题/草莓女孩###https://highparty.tmall.com/category-1072559220.htm?search=y&parentCatId=1072559207&parentCatName=%BF%A8%CD%A8%D6%F7%CC%E2&catName=%B2%DD%DD%AE%C5%AE%BA%A2#bd
 卡通主题/足球小将###https://highparty.tmall.com/category-1072559249.htm?search=y&parentCatId=1072559207&parentCatName=%BF%A8%CD%A8%D6%F7%CC%E2&catName=%D7%E3%C7%F2%D0%A1%BD%AB#bd
 卡通主题/魔术小丑###https://highparty.tmall.com/category-1072559232.htm?search=y&parentCatId=1072559207&parentCatName=%BF%A8%CD%A8%D6%F7%CC%E2&catName=%C4%A7%CA%F5%D0%A1%B3%F3#bd
+卡通主题/海底世界###https://highparty.tmall.com/category-1072559224.htm?search=y&parentCatId=1072559207&parentCatName=%BF%A8%CD%A8%D6%F7%CC%E2&catName=%BA%A3%B5%D7%CA%C0%BD%E7#bd
 卡通主题/猫和老鼠###https://highparty.tmall.com/category-1072559230.htm?search=y&parentCatId=1072559207&parentCatName=%BF%A8%CD%A8%D6%F7%CC%E2&catName=%C3%A8%BA%CD%C0%CF%CA%F3#bd
 卡通主题/变形金刚###https://highparty.tmall.com/category-1072559215.htm?search=y&parentCatId=1072559207&parentCatName=%BF%A8%CD%A8%D6%F7%CC%E2&catName=%B1%E4%D0%CE%BD%F0%B8%D5#bd
 卡通主题/小猪佩奇###https://highparty.tmall.com/category-1265818512.htm?search=y&parentCatId=1072559207&parentCatName=%BF%A8%CD%A8%D6%F7%CC%E2&catName=%D0%A1%D6%ED%C5%E5%C6%E6#bd
@@ -79,6 +82,3 @@ COS服装/成人款###https://highparty.tmall.com/category-1110811010.htm?search
 派对服务###https://highparty.tmall.com/category-239171108.htm?search=y&catName=%C5%C9%B6%D4%B7%FE%CE%F1#bd
 圣诞专区###https://highparty.tmall.com/category-1154247388.htm?search=y&catName=%CA%A5%B5%AE%D7%A8%C7%F8#bd
 新年春节专区###https://highparty.tmall.com/category-1286089557.htm?search=y&catName=%D0%C2%C4%EA%B4%BA%BD%DA%D7%A8%C7%F8#bd
-数字年龄套餐/女孩套餐###https://highparty.tmall.com/category-1213003381.htm?search=y&parentCatId=1213003379&parentCatName=%CA%FD%D7%D6%C4%EA%C1%E4%CC%D7%B2%CD&catName=%C5%AE%BA%A2%CC%D7%B2%CD#bd
-生肖套餐###https://highparty.tmall.com/category-1210688787.htm?search=y&catName=%C9%FA%D0%A4%CC%D7%B2%CD#bd
-卡通主题/海底世界###https://highparty.tmall.com/category-1072559224.htm?search=y&parentCatId=1072559207&parentCatName=%BF%A8%CD%A8%D6%F7%CC%E2&catName=%BA%A3%B5%D7%CA%C0%BD%E7#bd
