@@ -1688,13 +1688,13 @@ public class TaobaoUpload {
 		// 上传图片
 		Utils.uploadFile(filePath);
 		
-		// 等待上传完成 
-		while (driverUtils.isElementExisted(By.xpath("//div[@class='fail']"))){//上传中...0% 
-			System.err.println("Waiting for upload complete [" + filePath + "]");
-			Thread.sleep(1000);
-		}
+//		// 等待上传完成 
+//		while (driverUtils.isElementExisted(By.xpath("//div[@class='fail']"))){//上传中...0% 
+//			System.err.println("Waiting for upload complete [" + filePath + "]");
+//			Thread.sleep(1000);
+//		}
 		
-		Thread.sleep(1000);
+		Thread.sleep(2000);
 	}
 
 	private void chooseCategory(String title) throws Exception {
@@ -2106,7 +2106,7 @@ public class TaobaoUpload {
 		} finally {
 			// 关闭当前发布 页面，继续上传
 			try {
-//				this.tryToCloseCurrentPage();
+				this.tryToCloseCurrentPage();
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}

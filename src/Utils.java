@@ -20,6 +20,7 @@ import java.net.Proxy;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -697,7 +698,7 @@ public class Utils {
 		return ret;
 	}
 
-	public static void filterDuplicate(String linkSrc) {
+	public static void formatProductList(String linkSrc) {
 		File oldFile = new File(linkSrc);
 
 		BufferedReader br = null;
@@ -711,10 +712,16 @@ public class Utils {
 			while ((line = br.readLine()) != null) {
 				String[] ary = line.split(Constants.TM_SEPERATOR);
 				String folder = ary[0];
-				String menuPath = ary[0].substring(0, ary[0].lastIndexOf("/"));
-				String proId = ary[1].substring(ary[1].indexOf("?id=") + 4, ary[1].indexOf("&rn="));
+				String menuPath = Utils.formatMenuName(ary[0].substring(0, ary[0].lastIndexOf("/")));
+				String proId = ary[1];
+				
+				if ("派对服务".equals(menuPath)) {
+					continue;
+				}
+				
 				linkList.add(new String[] { folder, menuPath, proId });
 				Set<String> menus;
+				
 				if (map.containsKey(proId)) {
 					menus = map.get(proId);
 				} else {
@@ -755,6 +762,7 @@ public class Utils {
 				StringBuffer menusStr = new StringBuffer();
 				int k = 0;
 				for (String menu : menus) {
+					menu = menu.replace("派对游戏 皮纳塔Pinata", "皮纳塔 Pinata");
 					if (k == 0) {
 						menusStr.append(menu);
 					} else {
@@ -823,40 +831,6 @@ public class Utils {
 			}
 		}
 
-		// Output duplicate products
-		// Iterator<Entry<String, Set<String>>> items =
-		// map.entrySet().iterator();
-		// while(items.hasNext()){
-		// Entry<String, Set<String>> entry = items.next();
-		// if (entry.getValue().size() > 1){
-		// System.out.print(entry.getKey() + ": ");
-		// for (String s : entry.getValue()){
-		// System.out.print(s + Constants.TM_SEPERATOR);
-		// }
-		// System.out.println();
-		//
-		// }
-		// }
-
-		// for (String[] ary : rows){
-		// String proId = ary[2];
-		// if (map.containsKey(proId) && map.get(proId).size() > 1){
-		//// System.out.println("----------------------------------------");
-		//// System.out.println(ary[0] + Constants.TM_SEPERATOR + ary[2] +
-		// Constants.TM_SEPERATOR + ary[3] + Constants.TM_SEPERATOR + ary[4]);
-		// String line = ary[0] + Constants.TM_SEPERATOR + ary[2] +
-		// Constants.TM_SEPERATOR + ary[3] + Constants.TM_SEPERATOR + ary[4];
-		// int k = 0;
-		// for (String s : map.get(proId)){
-		// if (k++ > 0){
-		// String[] sAry = s.split(Constants.TM_SEPERATOR);//length:4
-		// System.out.println(line + Constants.TM_SEPERATOR + sAry[1]);
-		// }
-		// }
-		//
-		// map.remove(proId);
-		// }
-		// }
 
 		for (String[] ary : rows) {
 			System.out.println(ary[0] + Constants.TM_SEPERATOR + ary[1] + Constants.TM_SEPERATOR + ary[2]
@@ -1208,6 +1182,117 @@ public class Utils {
 		// products
 		printProductsDifferenceList(oldLinkPath, newLinkPath);
 	}
+	
+	private static void readProdList(String listFilePath, Set<String> proIdSet, Map<String, Set<String>> proMenusMap, Map<String, String> maxSeqPerMenu, Map<String, String> newProdIdMap ){
+		BufferedReader br = null;
+		String line;
+		try {
+
+			////////////////////////////////////////////////////////
+			br = new BufferedReader(new FileReader(listFilePath));
+			while ((line = br.readLine()) != null) {
+				String[] ary = line.split(Constants.TM_SEPERATOR);// length:4
+				String folder = ary[0];
+				String[] menuAry = ary[1].split(";");
+				String id = ary[2];
+				String seq = folder.substring(folder.lastIndexOf("/") + 1);
+				String menuBase = folder.substring(0, folder.lastIndexOf("/"));
+				
+				proIdSet.add(id);
+				Set<String> set;
+				if (proMenusMap.containsKey(id)) {
+					set = proMenusMap.get(id);
+				} else {
+					set = new HashSet<String>();
+				}
+				set.addAll(Arrays.asList(menuAry));
+
+				proMenusMap.put(id, set);
+
+				// 生成菜单下最大编码的MAP
+				if (maxSeqPerMenu != null && (!maxSeqPerMenu.containsKey(menuBase) || maxSeqPerMenu.get(menuBase).compareTo(seq) < 0)) {
+					maxSeqPerMenu.put(menuBase, seq);
+				}
+				if (maxSeqPerMenu != null && ary.length >= 5){
+					newProdIdMap.put(id, ary[4]);	
+				}
+			}
+
+			br.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void compareAllProds(String source, String target) {
+		Set<String> oldProIds = new HashSet<String>();
+		Set<String> newProIds = new HashSet<String>();
+		Map<String, Set<String>> proMenuMapOld = new HashMap<String, Set<String>>();
+		Map<String, Set<String>> proMenuMapNew = new HashMap<String, Set<String>>();
+		Map<String, String> maxSeqPerMenu = new HashMap<String, String>();
+		Map<String, String> newProdIdMap = new HashMap<String, String>();
+
+		readProdList(source, oldProIds, proMenuMapOld, maxSeqPerMenu, newProdIdMap);
+		readProdList(target, newProIds, proMenuMapNew, null, null);
+		
+
+		Set<String> oldMenusClone = new HashSet<String>(oldProIds);
+		Set<String> newMenusClone = new HashSet<String>(newProIds);
+		newMenusClone.removeAll(oldProIds);
+		oldMenusClone.removeAll(newProIds);
+
+		System.out.println("*********PRODUCTS NEW********");
+		for (String id : newMenusClone) {
+			// 生成新的序号
+			List<String> sortedList = convertToSortedList(proMenuMapNew.get(id));
+			String currentSeq = null;
+			String menuName = null;
+			for (String m : sortedList){
+				if (maxSeqPerMenu.containsKey(m)){
+					currentSeq = maxSeqPerMenu.get(m);
+					menuName = m;
+					break;
+				}
+			}
+			
+			String prefix = "";
+			String seq = ""; 
+			if (currentSeq == null){
+				prefix =Utils.generateRandomPrefix();
+				seq = "0";
+			}else{
+				prefix = currentSeq.substring(0, 4);
+				seq = currentSeq.substring(4);
+			}
+			
+			String newCode = prefix + Utils.formatNumber(Integer.valueOf(seq) + 1);
+			// 更新最新序号
+			maxSeqPerMenu.put(menuName, newCode);
+
+			System.out.println(menuName + "/" + newCode + Constants.TM_SEPERATOR + formatMenuList(sortedList)
+					+ Constants.TM_SEPERATOR + id);
+		}
+
+		System.out.println("\n*********PRODUCTS REMOVED********");
+		for (String id : oldMenusClone) {
+			System.out
+					.println(formatMenuList(convertToSortedList(proMenuMapOld.get(id))) + Constants.TM_SEPERATOR + id + Constants.TM_SEPERATOR + newProdIdMap.get(id));
+		}
+
+		System.out.println("\n*********PRODUCTS CHANGED********");
+		for (String id : oldProIds) {
+			List<String> sortedOldMenusPerPro = convertToSortedList(proMenuMapOld.get(id));
+			List<String> sortedNewMenusPerPro = convertToSortedList(proMenuMapNew.get(id));
+			if (sortedNewMenusPerPro != null
+					&& !sortedOldMenusPerPro.toString().equals(sortedNewMenusPerPro.toString())) {
+				System.out.println(formatMenuList(sortedOldMenusPerPro) + " >>>> "
+						+ formatMenuList(sortedNewMenusPerPro) + Constants.TM_SEPERATOR + id + Constants.TM_SEPERATOR + newProdIdMap.get(id));
+			}
+		}
+
+		System.out.println();
+	}
 
 	/**
 	 * 根据下载的文件对比，得出分类差异
@@ -1301,7 +1386,7 @@ public class Utils {
 				} else {
 					set = new HashSet<String>();
 				}
-				set.add(ary[1]);
+				set.addAll(Arrays.asList(ary[1].split(";")));
 
 				proMenuMapOld.put(id, set);
 
@@ -1414,7 +1499,7 @@ public class Utils {
 			br = new BufferedReader(new FileReader(linkFile));
 			while ((line = br.readLine()) != null) {
 				String[] ary = line.split(Constants.TM_SEPERATOR);// length:4
-				linkMap.put(ary[2], line);
+				linkMap.put(ary[1], line);
 			}
 
 			br.close();
@@ -1577,12 +1662,10 @@ public class Utils {
 		// url.indexOf("&itemId="));
 		// System.out.println(catId);
 		// Utils.printAnalysisResult();
-		// Utils.shrinkProductLinkList("d:/Taobao/links.txt");
+//		 Utils.shrinkProductLinkList("d:/Taobao/links_download_Nov_5.txt");
 //		Utils.printDifference("d:/Taobao/tm_products_under_menu_base.txt", "d:/Taobao/tm_products_under_menu.txt");
-
-//		InputStream is= new FileInputStream(new File(""));
-	    BufferedImage imgOld = ImageIO.read(new File("D:/Taobao/F0810007_D_1.png"));
-	    BufferedImage imgNew = ImageIO.read(new File("D:/Taobao/F0810006_D_3.jpg"));
-	    System.out.print(Utils.compareImages(imgOld, imgNew));
+		
+//		 Utils.formatProductList("d:/Taobao/links_download_Nov_5.txt");
+		 Utils.compareAllProds(Constants.SHARE_FOLDER_PATH + "/" + Constants.UPLOAD_SUCCESS_FILENAME, "d:/Taobao/links.txt");
 	}
 }
